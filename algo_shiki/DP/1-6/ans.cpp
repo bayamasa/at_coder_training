@@ -16,7 +16,7 @@ int main()
 	{
 		for (int j = 0; j < M; i++)
 		{
-			if (i - D[j] >= 0 && D[i - D[j]])
+			if (i - D[j] >= 0 && dp[i - D[j]])
 				dp[i] = true;
 		}
 	}
