@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	int count;
+	long long count;
 	string S;
 
 	cin >> S;
@@ -15,7 +15,7 @@ int main()
 	for (int i = 0; i < S.length(); ++i) {
 		R[i] = S.at(i);
 	}
-	int num = 0;
+	long long num = 0;
 	for (int i = 0; i < S.length(); ++i) {
 			if (R[i] == 'W')
 			{
