@@ -7,59 +7,22 @@ int main()
 {
 	int N;
 	cin >> N;
-	vector<vector<int> > data(N, vector<int>(3));
-	
+	vector<vector<int> > A(N, vector<int>(3));
 	for (int i = 0; i < N; ++i) {
 		for (int j = 0; j < 3; ++j) {
-			cin >> data[i][j];
+			cin >> A[i][j];
 		}
 	}
-	// Nを3回のループにわける
-	int loop = N / 3;
 	
-	int mod = N % 3;
-	int ind;
-	int total = 0;
-	for (int i = 0; i < loop; ++i) {
-		// 6この総当りでmaxを出す
-		ind = i * 3;
-		int p1 = data[ind][0] + data[ind + 1][1] + data[ind + 2][2];
-		int p2 = data[ind][0] + data[ind + 1][2] + data[ind + 2][1];
-		int p3 = data[ind][1] + data[ind + 1][0] + data[ind + 2][2];
-		int p4 = data[ind][1] + data[ind + 1][2] + data[ind + 2][0];
-		int p5 = data[ind][2] + data[ind + 1][0] + data[ind + 2][1];
-		int p6 = data[ind][2] + data[ind + 1][2] + data[ind + 2][0];
-		int m = max(p1, p2);
-		m = max(m, p3);
-		m = max(m, p4);
-		m = max(m, p5);
-		m = max(m, p6);
-		total += m;
+	vector<vector<int> > data(N, vector<int>(3));
+	data[0][0] = A[0][0];
+	data[0][1] = A[0][1];
+	data[0][2] = A[0][2];
+	for (int i = 1; i < N; ++i) {
+		data[i][0] = max(data[i - 1][1], data[i - 1][2]) + A[i][0];
+		data[i][1] = max(data[i - 1][0], data[i - 1][2]) + A[i][1];
+		data[i][2] = max(data[i - 1][0], data[i - 1][1]) + A[i][2];
 	}
-	if (mod == 1)
-	{
-		int p1 = data[loop * 3][0];
-		int p2 = data[loop * 3][1];
-		int p3 = data[loop * 3][2];
-		int m = max(p1, p2);
-		m = max(m, p3);
-		total += m;
-	}
-	else if (mod == 2)
-	{
-		ind = loop * 3;
-		int p1 = data[ind][0] + data[ind + 1][1];
-		int p2 = data[ind][0] + data[ind + 1][2];
-		int p3 = data[ind][1] + data[ind + 1][0];
-		int p4 = data[ind][1] + data[ind + 1][2];
-		int p5 = data[ind][2] + data[ind + 1][0];
-		int p6 = data[ind][2] + data[ind + 1][1];
-		int m = max(p1, p2);
-		m = max(m, p3);
-		m = max(m, p4);
-		m = max(m, p5);
-		m = max(m, p6);
-		total += m;
-	}
-	std::cout << total << std::endl;
+	
+	std::cout << max(data[N-1][0], max(data[N-1][1], data[N-1][2])) << std::endl;
 }
